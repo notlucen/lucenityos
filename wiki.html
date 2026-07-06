@@ -1,13 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiki Technical Documentation - LucenityOS</title>
+    <title>Wiki Technical Documentation — LucenityOS</title>
     <link rel="icon" type="image/png" href="LucenityOSicon.png">
     <style>
-        :root {            --slate-950: #06080C;            --sidebar-bg: #0A0D14;            --gold-raw: #E5A93C;            --gold-shimmer: #F3D082;            --border-muted: rgba(255, 255, 255, 0.05);            --font-display: system-ui, -apple-system, sans-serif;            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;        }        * {            box-sizing: border-box;            margin: 0;            padding: 0;        }        body {            background-color: var(--slate-950);            color: #E2E8F0;            font-family: var(--font-display);            line-height: 1.6;            display: flex;            flex-direction: column;            min-height: 100vh;        }        header {            background: var(--sidebar-bg);            border-bottom: 1px solid var(--border-muted);            padding: 14px 28px;            display: flex;            justify-content: space-between;            align-items: center;            position: sticky;            top: 0;            z-index: 100;        }        .brand-link {            display: flex;            align-items: center;            gap: 12px;            text-decoration: none;            color: #FFFFFF;            font-weight: 700;            font-size: 1.1rem;        }        .brand-link img {            width: 24px;            height: 24px;            object-fit: contain;        }        nav a {            color: #8A99AD;            text-decoration: none;            font-size: 0.9rem;            margin-left: 28px;            transition: color 0.2s ease;        }        nav a:hover, nav a.active { color: #FFFFFF; }        .wiki-layout {            display: grid;            grid-template-columns: 280px 1fr;            flex: 1;        }        aside {            background: var(--sidebar-bg);            border-right: 1px solid var(--border-muted);            padding: 40px 24px;            position: sticky;            top: 54px;            height: calc(100vh - 54px);            overflow-y: auto;        }        .doc-section {            margin-bottom: 32px;        }        .section-heading {            font-size: 0.75rem;            text-transform: uppercase;            letter-spacing: 1px;            color: var(--gold-raw);            font-weight: 700;            margin-bottom: 14px;        }        .link-list {            list-style: none;        }        .link-list li {            margin-bottom: 10px;        }        .link-list a {            color: #8A99AD;            text-decoration: none;            font-size: 0.88rem;            display: block;            transition: color 0.15s ease;        }        .link-list a:hover, .link-list a.active {            color: #FFFFFF;        }        main {            padding: 60px 80px;            max-width: 950px;        }        .scope-tag {            color: var(--gold-shimmer);            font-size: 0.8rem;            font-weight: 600;            text-transform: uppercase;            letter-spacing: 0.5px;            margin-bottom: 8px;            font-family: var(--font-mono);            display: block;        }        h1 {            font-size: 2.4rem;            color: #FFFFFF;            margin-bottom: 24px;            letter-spacing: -0.8px;        }        p {            color: #8A99AD;            font-size: 1.02rem;            margin-bottom: 24px;            line-height: 1.7;        }        h2 {            color: #FFFFFF;            font-size: 1.4rem;            margin-top: 44px;            margin-bottom: 16px;            letter-spacing: -0.3px;        }        pre {            background: #0B0E14;            border: 1px solid var(--border-muted);            padding: 20px;            border-radius: 10px;            font-family: var(--font-mono);            font-size: 0.85rem;            overflow-x: auto;            margin: 24px 0;            color: #E2E8F0;        }        .syntax-key { color: var(--gold-raw); }        .syntax-comment { color: #4A5568; }        .callout-box {            background: rgba(229, 169, 60, 0.04);            border-left: 3px solid var(--gold-raw);            padding: 20px;            border-radius: 0 10px 10px 0;            margin: 32px 0;        }        .callout-box p {            margin-bottom: 0;            font-size: 0.94rem;            color: #E2E8F0;        }        @media (max-width: 900px) {            .wiki-layout { grid-template-columns: 1fr; }            aside { display: none; }            main { padding: 40px 24px; }        }
+        :root {
+            --slate-950: #06080C;
+            --sidebar-bg: #0A0D14;
+            --gold-raw: #E5A93C;
+            --gold-shimmer: #F3D082;
+            --border-muted: rgba(255, 255, 255, 0.05);
+            --font-display: system-ui, -apple-system, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--slate-950);
+            color: #E2E8F0;
+            font-family: var(--font-display);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border-muted);
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .brand-link img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        nav a {
+            color: #8A99AD;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: 28px;
+            transition: color 0.2s ease;
+        }
+        nav a:hover, nav a.active { color: #FFFFFF; }
+        .wiki-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            flex: 1;
+        }
+        aside {
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-muted);
+            padding: 40px 24px;
+            position: sticky;
+            top: 54px;
+            height: calc(100vh - 54px);
+            overflow-y: auto;
+        }
+        .doc-section {
+            margin-bottom: 32px;
+        }
+        .section-heading {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold-raw);
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+        .link-list {
+            list-style: none;
+        }
+        .link-list li {
+            margin-bottom: 10px;
+        }
+        .link-list a {
+            color: #8A99AD;
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            transition: color 0.15s ease;
+        }
+        .link-list a:hover, .link-list a.active {
+            color: #FFFFFF;
+        }
+        main {
+            padding: 60px 80px;
+            max-width: 950px;
+        }
+        .scope-tag {
+            color: var(--gold-shimmer);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-family: var(--font-mono);
+            display: block;
+        }
+        h1 {
+            font-size: 2.4rem;
+            color: #FFFFFF;
+            margin-bottom: 24px;
+            letter-spacing: -0.8px;
+        }
+        p {
+            color: #8A99AD;
+            font-size: 1.02rem;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+        h2 {
+            color: #FFFFFF;
+            font-size: 1.4rem;
+            margin-top: 44px;
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
+        }
+        pre {
+            background: #0B0E14;
+            border: 1px solid var(--border-muted);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 24px 0;
+            color: #E2E8F0;
+        }
+        .syntax-key { color: var(--gold-raw); }
+        .syntax-comment { color: #4A5568; }
+        .callout-box {
+            background: rgba(229, 169, 60, 0.04);
+            border-left: 3px solid var(--gold-raw);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 32px 0;
+        }
+        .callout-box p {
+            margin-bottom: 0;
+            font-size: 0.94rem;
+            color: #E2E8F0;
+        }
+        @media (max-width: 900px) {
+            .wiki-layout { grid-template-columns: 1fr; }
+            aside { display: none; }
+            main { padding: 40px 24px; }
+        }
     </style>
 </head>
 
